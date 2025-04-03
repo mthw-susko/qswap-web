@@ -19,27 +19,11 @@ export default function Home() {
   const [activeScreen, setActiveScreen] = useState(0);
 
   const appScreenshots = [
-    "/app-screenshot-1.png",
-    "/app-screenshot-2.png",
-    "/app-screenshot-3.png",
-    "/app-screenshot-4.png",
+    "/app-screenshots/screenshot-1.png",
+    "/app-screenshots/screenshot-2.png",
+    "/app-screenshots/screenshot-3.png",
+    "/app-screenshots/screenshot-4.png",
   ];
-
-  // Auto-scroll testimonials
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Auto-transition between screenshots
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveScreen((prev) => (prev + 1) % appScreenshots.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
 
   const testimonials = [
     {
@@ -58,6 +42,22 @@ export default function Home() {
       name: "Taylor, 4th Year Chemistry",
     },
   ];
+
+  // Auto-scroll testimonials - Fixed dependency array
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [testimonials.length]); // Added missing dependency
+
+  // Auto-transition between screenshots - Fixed dependency array
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveScreen((prev) => (prev + 1) % appScreenshots.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [appScreenshots.length]); // Added missing dependency
 
   const featureItems = [
     {
@@ -173,7 +173,7 @@ export default function Home() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               <span className="block">Buy, Sell, Trade—</span>
               <span className="text-[#9F71D1]">
-                Exclusively for Queen's Students
+                Exclusively for Queen&apos;s Students
               </span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
@@ -393,7 +393,7 @@ export default function Home() {
               >
                 <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg max-w-3xl mx-auto text-center">
                   <p className="text-lg md:text-xl mb-4 italic">
-                    "{testimonial.quote}"
+                    &ldquo;{testimonial.quote}&rdquo;
                   </p>
                   <p className="font-medium text-[#9F71D1]">
                     {testimonial.name}
@@ -439,8 +439,8 @@ export default function Home() {
               Ready to Trade? Download Now!
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto">
-              Join thousands of Queen's students already buying and selling on
-              campus.
+              Join thousands of Queen&apos;s students already buying and selling
+              on campus.
             </p>
 
             <motion.a
@@ -504,7 +504,7 @@ export default function Home() {
           <div className="mt-10 text-center text-gray-400 text-sm">
             <p>© {new Date().getFullYear()} QSwap. All rights reserved.</p>
             <p className="mt-2">
-              Made exclusively for Queen's University students.
+              Made exclusively for Queen&apos;s University students.
             </p>
           </div>
         </div>

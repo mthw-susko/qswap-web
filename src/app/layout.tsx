@@ -1,6 +1,6 @@
-// qswap-web/src/app/layout.tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -10,8 +10,9 @@ export const metadata: Metadata = {
   description:
     "Buy, sell, and trade exclusively with Queen's University students. No fees, safe on-campus meetups.",
   icons: {
-    icon: "/app_icon.png",
-    apple: "/app_icon.png",
+    icon: ["/favicon.ico?v=4"],
+    apple: ["/apple-touch-icon.png?v=4"],
+    shortcut: ["/apple-touch-icon.png"],
   },
 };
 
@@ -22,7 +23,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/app_icon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/app_icon.png" />
+        <link rel="manifest" href="/manifest.json" />
+      </head>
+      <body className={inter.className}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
